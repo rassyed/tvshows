@@ -71,10 +71,10 @@ export default {
       return this.itemInfo && this.itemInfo.show ? this.itemInfo.show.genres.map(element => element.toUpperCase()) : this.itemInfo.genres.map(element => element.toUpperCase());
     },
     date () {
-      return this.itemInfo && this.itemInfo.show ? (this.itemInfo.show.premiered) ? dayjs(this.itemInfo.show.premiered).format('MMM D, YYYY') : dayjs(this.itemInfo.premiered).format('MMM D, YYYY') : ''
+      return this.itemInfo && this.itemInfo.show ? dayjs(this.itemInfo.show.premiered).format('MMM D, YYYY') : dayjs(this.itemInfo.premiered).format('MMM D, YYYY')
     },
     icon () {
-      return this.itemInfo.type == 'movie' ? 'film' : 'tv';
+      return 'tv';
     },
     rating () {
       if (this.itemInfo.show && this.itemInfo.show.rating && this.itemInfo.show.rating.average !== null) {
