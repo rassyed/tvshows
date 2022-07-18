@@ -29,9 +29,10 @@
               <h2 class="label">CAST</h2>
               <p>{{ itemInfo.cast }}</p>
             </div>
-            <h2 class="label">Run time</h2>
-            <p v-if="itemInfo.runtime">{{ itemInfo.runtime }} minutes</p>
-            <p v-else>{{ itemInfo.show.runtime }} minutes</p>
+            <div v-if="runtime">
+              <h2 class="label">Run time</h2>
+              <p>{{ runtime }} minutes</p>
+            </div>
             <h2 class="label" v-if="rating">Rating</h2>
             <p v-if="rating">{{ rating }}</p>
           </section>
@@ -89,6 +90,9 @@ export default {
         return this.itemInfo.rating.average
       }
       return ''
+    },
+    runtime () {
+      return this.itemInfo && this.itemInfo.show ? this.itemInfo.show.runtime : this.itemInfo.runtime
     }
   },
   methods: {

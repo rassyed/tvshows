@@ -51,6 +51,12 @@ export default {
           transform: 'shrink-8'
         },
         {
+          url: '/top-shows',
+          text: 'Top',
+          icon: 'star',
+          transform: 'shrink-8'
+        },
+        {
           url: '/shows',
           text: 'Shows',
           icon: 'tv',

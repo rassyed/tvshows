@@ -26,7 +26,7 @@ export default {
     computedResults () {
       if (this.selectedGenre !== '' && this.selectedGenre !== null && this.selectedGenre !== 'all') {
         return this.results.filter(item => {
-          return item && item.show ? item.show.genres.includes(this.selectedGenre) === true
+          return item && item.show ? item.show.genres.includes(this.selectedGenre)
           : item.genres.includes(this.selectedGenre)
         });
       }

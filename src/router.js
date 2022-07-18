@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import SearchView from "@/views/SearchView";
 import TvShowsView from "@/views/TvShowsView";
+import TopShowsView from "@/views/TopShowsView";
 
 Vue.use(Router);
 
@@ -20,6 +21,11 @@ export default new Router({
       meta: {
         showBlock: true
       }
+    },
+    {
+      path: "/top-shows",
+      name: "top-shows",
+      component: TopShowsView
     },
     {
       path: "/tv-shows",
