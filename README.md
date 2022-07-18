@@ -1,4 +1,5 @@
 # tvshows
+App implemented using vuejs, router and store(vuex)
 
 ## Project setup
 ```
