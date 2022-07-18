@@ -7,7 +7,7 @@
         size="1x" />&nbsp;
         {{viewTitle}}
       </h2>
-    <ItemList :results="results" type="tv" @item-clicked="viewDetailInfo" />
+    <ItemList :results="results" :selectedGenre="selectedGenre" type="tv" @item-clicked="viewDetailInfo" />
     <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
   </div>
 </template>
@@ -17,7 +17,8 @@ import ItemList from '@/components/ItemList';
 import ItemListMore from '@/components/ItemListMore';
 import AppServices from '@/services/AppServices';
 import { viewDetailMixin } from '@/mixins/viewDetailMixin';
-import router from '@/router'
+import router from '@/router';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'TvShowsView',
@@ -36,6 +37,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['selectedGenre']),
     loadMore () {
       return this.totalPages > this.page ? true : false;
     },

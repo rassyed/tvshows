@@ -14,6 +14,7 @@
           @change="genreSelected"
           >
             <option value="null" selected>Select genre</option>
+            <option value="all">All</option>
             <option
               v-for="(genre, index) in genres" 
               :key="index" 
