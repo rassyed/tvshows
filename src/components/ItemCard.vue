@@ -5,12 +5,6 @@
         <figure>
           <img :src="urlImg" />
         </figure>
-        <span class="icon-container" v-show="showIcon">
-          <font-awesome-icon 
-            :icon="icon" 
-            size="1x" 
-            class="icon" />
-        </span>
         <span class="card-title">{{ title }}</span>
       </a>
     </div>
@@ -36,22 +30,13 @@ export default {
         ? this.item.image.medium || this.item.image.original
         : require('@/assets/images/poster-not-available.png');
     },
-    mediaType(){
-      return this.type == 'multi' ? this.item.media_type : this.type;
-    },
     title() {
       return this.item && this.item.show ? this.item.show.name : this.item.name;
-    },
-    showIcon(){
-      return this.type == 'multi' ? true : false;
-    },
-    icon(){
-      return this.mediaType == 'movie' ? 'film' : 'tv';
     }
   },
   methods: {
     viewDetail() {
-      this.$emit('item-clicked', this.item.id, this.mediaType);
+      this.$emit('item-clicked', this.item);
     }
   }
 };

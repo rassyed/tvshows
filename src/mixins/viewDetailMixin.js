@@ -1,8 +1,8 @@
 export const viewDetailMixin = {
     methods: {
-      viewDetailInfo(id, type) {
+      viewDetailInfo(item) {
         try {
-          this.$store.dispatch('getItem', { id, type });
+          this.$store.dispatch('getItem', item);
           this.$emit('open-modal');
         } catch (e) {
           this.error = e;

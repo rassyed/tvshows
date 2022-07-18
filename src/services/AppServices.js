@@ -11,8 +11,8 @@ export default {
     const url = `${type}/${id}`;
     return API.get(url);
   },
-  getCast(id, type) {
-    const url = `${type}/${id}`;
+  getCast(id) {
+    const url = `shows/${id}/cast`;
     return API.get(url);
   },
   getTvShowsOnAir() {

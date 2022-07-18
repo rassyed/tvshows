@@ -50,22 +50,17 @@ export default new Vuex.Store({
     RESET_ITEM: state => {
       Vue.set(state, 'itemInfo', {});
     },
-    LOAD_ITEM: (state, { type, info, cast }) => {
-      const itemInfo = {
-        type,
-        title: type == 'movie' ? info.title : info.name,
-        year: type == 'movie' ? info.release_date : info.first_air_date,
-        overview: info.overview,
-        homepage: info.homepage,
-        genres: info.genres,
-        poster_path: info.poster_path,
-        backdrop_path: info.backdrop_path,
-        vote_average: info.vote_average,
-        cast: cast
-          .map(item => item.name)
-          .slice(0, 6)
-          .join(', ')
-      };
+    LOAD_ITEM: (state, {info, cast}) => {
+      const itemInfo = info;
+      let castDetails = '';
+      cast.forEach(element => {
+        if (castDetails !== '') {
+          castDetails = castDetails + ', ' + element.person.name
+        } else {
+          castDetails = element.person.name
+        }
+      });
+      itemInfo.cast = castDetails;
       Vue.set(state, 'itemInfo', itemInfo);
     },
     setGenre: (state, selectedGenre) => {
@@ -77,17 +72,15 @@ export default new Vuex.Store({
     getInitialData: async ({ commit }) => {
       await AppServices.getTvShowsOnAir();
     },
-    getItem: async ({ commit }, { id, type }) => {
+    getItem: async ({ commit }, item) => {
       commit('RESET_ITEM');
-      const [response, responseCast] = await Promise.all([
-        AppServices.getItemInfo(id, type),
-        AppServices.getCast(id, type)
+      const itemId = item && item.show ? item.show.id : item.id
+      const [ responseCast ] = await Promise.all([
+        AppServices.getCast(itemId)
       ]);
-
       commit('LOAD_ITEM', {
-        type,
-        info: response.data,
-        cast: responseCast.data.cast
+        info: item,
+        cast: responseCast.data
       });
     }
   }
