@@ -1,19 +1,18 @@
-import { API, key } from '@/services/api';
+import { API } from '@/services/api';
 
 const country = 'US';
-const include_adult = 'false';
 
 export default {
   search(query, page) {
-    const url = `search/multi?api_key=${key}&language=${language}&query=${query}&page=${page}&include_adult=${include_adult}`;
+    const url = `search/shows?q=${query}&page=${page}`;
     return API.get(url);
   },
   getItemInfo(id, type) {
-    const url = `${type}/${id}?api_key=${key}&language=${language}`;
+    const url = `${type}/${id}`;
     return API.get(url);
   },
   getCast(id, type) {
-    const url = `${type}/${id}/credits?api_key=${key}&language=${language}`;
+    const url = `${type}/${id}`;
     return API.get(url);
   },
   getTvShowsOnAir() {
@@ -23,8 +22,6 @@ export default {
     return API.get(url);    
   },
   getShows(page) {
-    let current_date = new Date();
-    current_date = formatDate(current_date)
     const url = `shows?page=${page}`;
     return API.get(url);    
   }

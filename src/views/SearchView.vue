@@ -35,7 +35,7 @@ export default {
       error: '',
       results: [],
       totalResults: null,
-      totalPages: null
+      totalPages: 10000
     };
   },
   computed: {
@@ -70,9 +70,8 @@ export default {
           this.query,
           this.page
         );
-        this.results = this.results.concat(response.data.results);
-        this.totalResults = response.data.total_results;
-        this.totalPages = response.data.total_pages;
+        this.results = this.results.concat(response.data);
+        this.totalResults = response.data.length;
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;

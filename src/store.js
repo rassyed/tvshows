@@ -7,7 +7,41 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     baseUrl: '',
-    itemInfo: {}
+    itemInfo: {},
+    genres: [
+      'Action',
+      'Adventure',
+      'Animation',
+      'Anime',
+      'Biography',
+      'Children',
+      'Comedy',
+      'Crime',
+      'Documentary',
+      'Drama',
+      'Family',
+      'Fantasy',
+      'Food',
+      'History',
+      'Horror',
+      'Music',
+      'Mystery',
+      'Romance',
+      'Science-Fiction',
+      'Sport',
+      'Thriller',
+      'War',
+      'Western'
+    ],
+    selectedGenre: null
+  },
+  getters: {
+    genres: state => {
+      return state.genres
+    },
+    selectedGenre: state => {
+      return state.selectedGenre
+    }
   },
   mutations: {
     LOAD_CONF: (state, baseUrl) => {
@@ -33,12 +67,15 @@ export default new Vuex.Store({
           .join(', ')
       };
       Vue.set(state, 'itemInfo', itemInfo);
+    },
+    setGenre: (state, selectedGenre) => {
+      state.selectedGenre = selectedGenre
     }
   },
 
   actions: {
     getInitialData: async ({ commit }) => {
-      const response = await AppServices.getTvShowsOnAir();
+      await AppServices.getTvShowsOnAir();
     },
     getItem: async ({ commit }, { id, type }) => {
       commit('RESET_ITEM');

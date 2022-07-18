@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     urlImg() {
-      if (router.currentRoute.meta.onAir) {
+      if (router.currentRoute.meta.showBlock) {
         return this.item.show && this.item.show.image != null
           ? this.item.show.image.medium || this.item.show.image.original
           : require('@/assets/images/poster-not-available.png');
@@ -41,7 +41,7 @@ export default {
       return this.type == 'multi' ? this.item.media_type : this.type;
     },
     title() {
-      return router.currentRoute.meta.onAir ? this.item.show.name : this.item.name;
+      return router.currentRoute.meta.showBlock ? this.item.show.name : this.item.name;
     },
     showIcon(){
       return this.type == 'multi' ? true : false;

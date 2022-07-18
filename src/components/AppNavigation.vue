@@ -9,6 +9,20 @@
         </router-link>
       </li>
       <li>
+        <div class="genre-container">
+          <select
+          @change="genreSelected"
+          >
+            <option value="null" selected>Select genre</option>
+            <option
+              v-for="(genre, index) in genres" 
+              :key="index" 
+              v-on='$listeners'
+            >{{genre}}</option>
+          </select>
+        </div>
+      </li>
+      <li>
         <AppSearch />
       </li>
     </ul>
@@ -17,9 +31,14 @@
 
 <script>
 import AppSearch from '@/components/AppSearch';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AppNavigation',
   components: { AppSearch },
+  computed: {
+    ...mapGetters(['genres']),
+  },
   data() {
     return {
       links: [
@@ -37,7 +56,12 @@ export default {
         }
       ]
     };
-  }
+  },
+  methods: {
+    genreSelected (e) {
+      this.$store.commit('setGenre', e.currentTarget.value)
+    }
+  },
 };
 </script>
 
@@ -55,10 +79,14 @@ li {
   list-style: none;
   display: inline-block;
   box-sizing: border-box;
-  &:last-child{
+  &:last-child {
     flex-grow: 1;
     border-right: 1px solid $background-border;
   }
+  &:nth-last-child(2) {
+    flex-grow: 0.5;
+    border-right: 1px solid $background-border;
+  }  
 }
 a {
   display: block;
@@ -89,6 +117,22 @@ span {
 .icon {
   margin-top: 15px;
 }
+.genre-container {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+select {
+  border: 0;
+  padding: 2px 10px;
+  width: calc(100% - 40px);
+  font-size: 1em;
+  outline: 0;
+  color: $color-primary;
+  background-color: $background-input;
+  border-radius: 3px;
+  margin-left: 20px;
+}
 @include sm {
   li {
     width: 85px;
@@ -99,6 +143,10 @@ span {
   }
   .icon {
     margin-top: 3px;
+  }
+  select {
+    padding: 8px 8px;
+    font-size: 1em;
   }
 }
 </style>

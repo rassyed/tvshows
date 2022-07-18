@@ -16,14 +16,17 @@ export default new Router({
     {
       path: "/search",
       name: "search",
-      component: SearchView
+      component: SearchView,
+      meta: {
+        showBlock: true
+      }
     },
     {
       path: "/tv-shows",
       name: "tv-shows",
       component: TvShowsView,
       meta: {
-        onAir: true
+        showBlock: true
       }
     },
     {

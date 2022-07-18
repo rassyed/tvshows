@@ -43,7 +43,7 @@ export default {
       return this.searching || this.error != '' ? true : false;
     },
     viewTitle () {
-      return router.currentRoute.meta.onAir ? 'TV Shows On Air' : 'Shows'
+      return router.currentRoute.meta.showBlock ? 'TV Shows On Air' : 'Shows'
     }
   },
   created(){
@@ -58,7 +58,7 @@ export default {
         this.loading = true;
       }
       try {
-        if(router.currentRoute.meta.onAir) {
+        if(router.currentRoute.meta.showBlock) {
           const response = await AppServices.getTvShowsOnAir();
           this.results = this.results.concat(response.data);
           this.totalPages = response.data.length;

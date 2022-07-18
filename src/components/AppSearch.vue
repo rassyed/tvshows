@@ -31,7 +31,7 @@ export default {
         this.resetSearch();
       }
     },
-    resetSearch(){
+    resetSearch () {
       this.query = '';
     }
   }

@@ -11,10 +11,15 @@
 
 <script>
 import ItemCard from '@/components/ItemCard.vue'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ItemList',
   components: {
     ItemCard
+  },
+  computed: {
+    ...mapGetters(['selectedGenre']),
   },
   props: {
     results: Array,
