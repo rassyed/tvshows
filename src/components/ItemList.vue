@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     computedResults () {
-      if (this.selectedGenre !== null && this.selectedGenre !== 'all') {
+      if (this.selectedGenre !== '' && this.selectedGenre !== null && this.selectedGenre !== 'all') {
         return this.results.filter(item => {
           return item && item.show ? item.show.genres.includes(this.selectedGenre) === true
           : item.genres.includes(this.selectedGenre)
