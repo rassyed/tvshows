@@ -16,8 +16,24 @@ export default {
     const url = `${type}/${id}/credits?api_key=${key}&language=${language}`;
     return API.get(url);
   },
-  getTvShowsOnAir(page){
-    const url = `schedule?country=${country}&date=2022-07-18`;
+  getTvShowsOnAir(page) {
+    let current_date = new Date();
+    current_date = formatDate(current_date)
+    const url = `schedule?country=${country}&date=${current_date}`;
     return API.get(url);    
   }
 };
+
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
