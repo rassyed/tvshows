@@ -10,7 +10,7 @@
     </div>
 
     <ItemList :results="results" :selectedGenre="selectedGenre" type="multi" @item-clicked="viewDetailInfo"  @totalResults="computeLoadMore"/>
-    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"  v-if="showMoreStatus"/>
+    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
   </div>
 </template>
 
@@ -37,14 +37,13 @@ export default {
       error: '',
       results: [],
       totalResults: null,
-      totalPages: 10000,
-      showMoreStatus: false
+      totalPages: 1
     };
   },
   computed: {
     ...mapGetters(['selectedGenre']),
     loadMore() {
-      return this.totalPages > this.page ? true : false;
+      return this.totalPages === this.page ? true : false;
     },
     showResults() {
       return !this.searching && this.totalResults != null;
@@ -74,8 +73,11 @@ export default {
           this.query,
           this.page
         );
+        let titleLength = this.results.length
         this.results = this.results.concat(response.data);
-        this.totalResults = response.data.length;
+        if (titleLength !== this.results.length) {
+            this.totalPages = Math.round(this.results.length / 250);
+        }
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;
@@ -85,7 +87,7 @@ export default {
       }
     },
     computeLoadMore (total) {
-      this.showMoreStatus = total > 100 ? true : false 
+      this.totalPages = Math.round(total / 250)
     }
   }
 };

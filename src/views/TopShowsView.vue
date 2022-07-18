@@ -8,7 +8,7 @@
         Top Shows
       </h2>
     <ItemList :results="computedResults" :selectedGenre="selectedGenre" type="tv" @item-clicked="viewDetailInfo" @totalResults="computeLoadMore"/>
-    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')" v-if="showMoreStatus"/>
+    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
   </div>
 </template>
 
@@ -17,7 +17,6 @@ import ItemList from '@/components/ItemList';
 import ItemListMore from '@/components/ItemListMore';
 import AppServices from '@/services/AppServices';
 import { viewDetailMixin } from '@/mixins/viewDetailMixin';
-import router from '@/router';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -33,8 +32,7 @@ export default {
       loading: false,
       error: '',
       results: [],
-      totalPages: null,
-      showMoreStatus: false
+      totalPages: 1
     };
   },
   computed: {
@@ -70,11 +68,7 @@ export default {
       }
       try {
         const response = await AppServices.getShows(this.page);
-        let titleLength = this.results.length
         this.results = this.results.concat(response.data);
-        if (titleLength !== this.results.length) {
-            this.totalPages = Math.round(this.results.length / 250);
-        }
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;
@@ -83,7 +77,7 @@ export default {
       }
     },
     computeLoadMore (total) {
-      return this.totalPages = this.page 
+      this.totalPages = Math.round(total / 250)
     }
   }
 };

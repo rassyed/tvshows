@@ -8,7 +8,7 @@
         {{viewTitle}}
       </h2>
     <ItemList :results="results" :selectedGenre="selectedGenre" type="tv" @item-clicked="viewDetailInfo" @totalResults="computeLoadMore"/>
-    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')" v-if="showMoreStatus"/>
+    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
   </div>
 </template>
 
@@ -33,14 +33,13 @@ export default {
       loading: false,
       error: '',
       results: [],
-      totalPages: null,
-      showMoreStatus: false
+      totalPages: 1
     };
   },
   computed: {
     ...mapGetters(['selectedGenre']),
     loadMore () {
-      return this.totalPages > this.page ? true : false;
+      return this.totalPages === this.page ? true : false;
     },
     showMessage () {
       return this.searching || this.error != '' ? true : false;
@@ -61,15 +60,13 @@ export default {
         this.loading = true;
       }
       try {
+        let response = null
         if(router.currentRoute.meta.showBlock) {
-          const response = await AppServices.getTvShowsOnAir();
-          this.results = this.results.concat(response.data);
-          this.totalPages = response.data.length;
+          response = await AppServices.getTvShowsOnAir();
         } else {
-          const response = await AppServices.getShows(this.page);
-          this.results = this.results.concat(response.data);
-          this.totalPages = response.data.length;
+          response = await AppServices.getShows(this.page);
         }
+        this.results = this.results.concat(response.data);
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;
@@ -78,7 +75,7 @@ export default {
       }
     },
     computeLoadMore (total) {
-      this.showMoreStatus = total > 100 ? true : false 
+      this.totalPages = Math.round(total / 250)
     }
   }
 };
