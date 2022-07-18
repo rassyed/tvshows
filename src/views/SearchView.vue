@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <ItemList :results="results" type="multi" @item-clicked="viewDetailInfo" />
+    <ItemList :results="results" :selectedGenre="selectedGenre" type="multi" @item-clicked="viewDetailInfo" />
     <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
   </div>
 </template>
@@ -19,6 +19,8 @@ import ItemList from '@/components/ItemList';
 import ItemListMore from '@/components/ItemListMore';
 import AppServices from '@/services/AppServices';
 import { viewDetailMixin } from '@/mixins/viewDetailMixin';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'SearchView',
   mixins: [viewDetailMixin],
@@ -39,6 +41,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['selectedGenre']),
     loadMore() {
       return this.totalPages > this.page ? true : false;
     },
