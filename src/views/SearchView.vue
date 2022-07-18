@@ -9,8 +9,8 @@
       </div>
     </div>
 
-    <ItemList :results="results" :selectedGenre="selectedGenre" type="multi" @item-clicked="viewDetailInfo" />
-    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
+    <ItemList :results="results" :selectedGenre="selectedGenre" type="multi" @item-clicked="viewDetailInfo"  @totalResults="computeLoadMore"/>
+    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"  v-if="showMoreStatus"/>
   </div>
 </template>
 
@@ -37,7 +37,8 @@ export default {
       error: '',
       results: [],
       totalResults: null,
-      totalPages: 10000
+      totalPages: 10000,
+      showMoreStatus: false
     };
   },
   computed: {
@@ -82,6 +83,9 @@ export default {
         this.searching = false;
         this.loading = false;
       }
+    },
+    computeLoadMore (total) {
+      this.showMoreStatus = total > 100 ? true : false 
     }
   }
 };

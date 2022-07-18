@@ -7,8 +7,8 @@
         size="1x" />&nbsp;
         {{viewTitle}}
       </h2>
-    <ItemList :results="results" :selectedGenre="selectedGenre" type="tv" @item-clicked="viewDetailInfo" />
-    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
+    <ItemList :results="results" :selectedGenre="selectedGenre" type="tv" @item-clicked="viewDetailInfo" @totalResults="computeLoadMore"/>
+    <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')" v-if="showMoreStatus"/>
   </div>
 </template>
 
@@ -33,7 +33,8 @@ export default {
       loading: false,
       error: '',
       results: [],
-      totalPages: null
+      totalPages: null,
+      showMoreStatus: false
     };
   },
   computed: {
@@ -75,6 +76,9 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    computeLoadMore (total) {
+      this.showMoreStatus = total > 100 ? true : false 
     }
   }
 };

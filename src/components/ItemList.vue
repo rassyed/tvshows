@@ -30,6 +30,7 @@ export default {
           : item.genres.includes(this.selectedGenre)
         });
       }
+      this.$emit('totalResults', this.results.length);
       return this.results
     }
   }

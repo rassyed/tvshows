@@ -19,14 +19,19 @@
                 class="icon" />&nbsp;
                 Premiered Date</h2>
             <p>{{ this.date }}</p>
-            <h2 class="label" v-if="genres.length > 0">Genres</h2>
-            <ul v-if="genres.length > 0">
-              <li v-for="(g, index) in genres" :key="index">{{ g }}</li>
-            </ul>
-            <h2 class="label">CAST</h2>
-            <p>{{ itemInfo.cast }}</p>
+            <div v-if="genres.length > 0">
+              <h2 class="label">Genres</h2>
+              <ul>
+                <li v-for="(g, index) in genres" :key="index">{{ g }}</li>
+              </ul>
+            </div>
+            <div v-if="itemInfo.cast">
+              <h2 class="label">CAST</h2>
+              <p>{{ itemInfo.cast }}</p>
+            </div>
             <h2 class="label">Run time</h2>
-            <p>{{ itemInfo.runtime }} minutes</p>
+            <p v-if="itemInfo.runtime">{{ itemInfo.runtime }} minutes</p>
+            <p v-else>{{ itemInfo.show.runtime }} minutes</p>
             <h2 class="label" v-if="rating">Rating</h2>
             <p v-if="rating">{{ rating }}</p>
           </section>
