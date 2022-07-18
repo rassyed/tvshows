@@ -5,7 +5,7 @@
         icon="tv" 
         transform="shrink-3"
         size="1x" />&nbsp;
-        TV Shows On Air
+        {{viewTitle}}
       </h2>
     <ItemList :results="results" type="tv" @item-clicked="viewDetailInfo" />
     <ItemListMore :loading="loading" :loadMore="loadMore" @view-more="fetchData('MORE')"/>
@@ -17,6 +17,8 @@ import ItemList from '@/components/ItemList';
 import ItemListMore from '@/components/ItemListMore';
 import AppServices from '@/services/AppServices';
 import { viewDetailMixin } from '@/mixins/viewDetailMixin';
+import router from '@/router'
+
 export default {
   name: 'TvShowsView',
   mixins: [viewDetailMixin],
@@ -34,11 +36,14 @@ export default {
     };
   },
   computed: {
-    loadMore() {
+    loadMore () {
       return this.totalPages > this.page ? true : false;
     },
-    showMessage() {
+    showMessage () {
       return this.searching || this.error != '' ? true : false;
+    },
+    viewTitle () {
+      return router.currentRoute.meta.onAir ? 'TV Shows On Air' : 'Shows'
     }
   },
   created(){
@@ -53,9 +58,15 @@ export default {
         this.loading = true;
       }
       try {
-        const response = await AppServices.getTvShowsOnAir(this.page);
-        this.results = this.results.concat(response.data);
-        this.totalPages = response.data.length;
+        if(router.currentRoute.meta.onAir) {
+          const response = await AppServices.getTvShowsOnAir();
+          this.results = this.results.concat(response.data);
+          this.totalPages = response.data.length;
+        } else {
+          const response = await AppServices.getShows(this.page);
+          this.results = this.results.concat(response.data);
+          this.totalPages = response.data.length;
+        }
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;

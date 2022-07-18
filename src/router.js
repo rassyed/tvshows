@@ -21,6 +21,14 @@ export default new Router({
     {
       path: "/tv-shows",
       name: "tv-shows",
+      component: TvShowsView,
+      meta: {
+        onAir: true
+      }
+    },
+    {
+      path: "/shows",
+      name: "shows",
       component: TvShowsView
     },
     {

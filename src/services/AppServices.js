@@ -16,10 +16,16 @@ export default {
     const url = `${type}/${id}/credits?api_key=${key}&language=${language}`;
     return API.get(url);
   },
-  getTvShowsOnAir(page) {
+  getTvShowsOnAir() {
     let current_date = new Date();
     current_date = formatDate(current_date)
     const url = `schedule?country=${country}&date=${current_date}`;
+    return API.get(url);    
+  },
+  getShows(page) {
+    let current_date = new Date();
+    current_date = formatDate(current_date)
+    const url = `shows?page=${page}`;
     return API.get(url);    
   }
 };

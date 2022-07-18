@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import router from '@/router';
+
 export default {
   name: 'ItemCard',
   props: {
@@ -26,15 +28,20 @@ export default {
   },
   computed: {
     urlImg() {
-      return this.item.show && this.item.show.image != null
-        ? this.item.show.image.medium || this.item.show.image.original
+      if (router.currentRoute.meta.onAir) {
+        return this.item.show && this.item.show.image != null
+          ? this.item.show.image.medium || this.item.show.image.original
+          : require('@/assets/images/poster-not-available.png');
+      }
+      return this.item && this.item.image != null
+        ? this.item.image.medium || this.item.image.original
         : require('@/assets/images/poster-not-available.png');
     },
     mediaType(){
       return this.type == 'multi' ? this.item.media_type : this.type;
     },
     title() {
-      return this.mediaType == 'movie' ? this.item.title : this.item.name;
+      return router.currentRoute.meta.onAir ? this.item.show.name : this.item.name;
     },
     showIcon(){
       return this.type == 'multi' ? true : false;
