@@ -1,8 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import TopsView from "@/views/TopsView";
 import SearchView from "@/views/SearchView";
-import MoviesView from "@/views/MoviesView";
 import TvShowsView from "@/views/TvShowsView";
 
 Vue.use(Router);
@@ -13,22 +11,12 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: { name: "tops" }
-    },
-    {
-      path: "/tops",
-      name: "tops",
-      component: TopsView
+      redirect: { name: "tv-shows" }
     },
     {
       path: "/search",
       name: "search",
       component: SearchView
-    },
-    {
-      path: "/movies",
-      name: "movies",
-      component: MoviesView
     },
     {
       path: "/tv-shows",
@@ -37,7 +25,7 @@ export default new Router({
     },
     {
       path: "/*",
-      redirect: { name: "tops" }
+      redirect: { name: "tv-shows" }
     }
   ]
 });

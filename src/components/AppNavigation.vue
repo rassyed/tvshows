@@ -24,18 +24,6 @@ export default {
     return {
       links: [
         {
-          url: '/tops',
-          text: 'Tops',
-          icon: 'star',
-          transform: 'shrink-7'
-        },
-        {
-          url: '/movies',
-          text: 'Movies',
-          icon: 'film',
-          transform: 'shrink-6'
-        },
-        {
           url: '/tv-shows',
           text: 'TV',
           icon: 'tv',

@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 export default {
   name: 'ItemCard',
   props: {
@@ -26,10 +25,9 @@ export default {
     type: String
   },
   computed: {
-    ...mapGetters(['imgPath']),
     urlImg() {
-      return this.item.poster_path != null
-        ? `${this.imgPath}${this.item.poster_path}`
+      return this.item.show && this.item.show.image != null
+        ? this.item.show.image.medium || this.item.show.image.original
         : require('@/assets/images/poster-not-available.png');
     },
     mediaType(){

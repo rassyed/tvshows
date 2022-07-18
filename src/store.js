@@ -9,11 +9,6 @@ export default new Vuex.Store({
     baseUrl: '',
     itemInfo: {}
   },
-  getters: {
-    imgPath: state => `${state.baseUrl}w370_and_h556_bestv2`
-    //backgroundPath: state => `${state.baseUrl}w1400_and_h450_face`
-  },
-
   mutations: {
     LOAD_CONF: (state, baseUrl) => {
       state.baseUrl = baseUrl;
@@ -43,8 +38,7 @@ export default new Vuex.Store({
 
   actions: {
     getInitialData: async ({ commit }) => {
-      const response = await AppServices.getConfiguration();
-      commit('LOAD_CONF', response.data.images.secure_base_url);
+      const response = await AppServices.getTvShowsOnAir();
     },
     getItem: async ({ commit }, { id, type }) => {
       commit('RESET_ITEM');

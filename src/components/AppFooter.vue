@@ -4,14 +4,7 @@
       <li>&#10004; Created with Vue.js</li>
       <li>
         Data from
-        <a href="https://www.themoviedb.org/documentation/api">The Movie DB</a>
-      </li>
-      <li>
-        <a href="https://github.com/ozoono/vue-movies">Repo on github</a>
-      </li>
-      <li>
-        &copy; by
-        <a href="https://github.com/ozoono/">ozoono</a>
+        <a href="http://www.tvmaze.com/api">TVmaze.com</a>
       </li>
     </ul>
   </div>
@@ -35,7 +28,7 @@ li {
 }
 a {
   color: $color-text-primary;
-  text-decoration: dotted underline;
+  text-decoration: underline;
   &:hover {
     color: $color-text-secondary;
     background-color: $color-primary;

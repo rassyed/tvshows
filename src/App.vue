@@ -3,14 +3,13 @@
     <header>
       <AppNavigation />
     </header>
-{{ }}
+    {{ }}
     <section>
       <keep-alive>
         <router-view :key="$route.fullPath" @open-modal="toggleModal" />
       </keep-alive>
       <AppModal v-if="showModal" @close-modal="toggleModal"></AppModal>
     </section>
-
     <footer>
       <AppFooter />
     </footer>

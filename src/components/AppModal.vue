@@ -62,7 +62,6 @@ export default {
   components: { ScoreIndicator },
   computed: {
     ...mapState(['type', 'itemInfo']),
-    ...mapGetters(['imgPath']),
     showItemInfo() {
       return !Object.keys(this.itemInfo).length ? false : true;
     },

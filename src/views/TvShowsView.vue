@@ -54,8 +54,8 @@ export default {
       }
       try {
         const response = await AppServices.getTvShowsOnAir(this.page);
-        this.results = this.results.concat(response.data.results);
-        this.totalPages = response.data.total_pages;
+        this.results = this.results.concat(response.data);
+        this.totalPages = response.data.length;
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;
