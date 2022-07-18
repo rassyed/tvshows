@@ -11,7 +11,6 @@
 
 <script>
 import ItemCard from '@/components/ItemCard.vue';
-import router from '@/router';
 
 export default {
   name: 'ItemList',
@@ -25,12 +24,9 @@ export default {
   },
   computed: {
     computedResults () {
-      console.log(router.currentRoute.meta.showBlock)
       if (this.selectedGenre !== null && this.selectedGenre !== 'all') {
         return this.results.filter(item => {
-          console.log(router.currentRoute.meta.showBlock)
-          console.log(item)
-          return router.currentRoute.meta.showBlock ? item.show.genres.includes(this.selectedGenre) === true
+          return item && item.show ? item.show.genres.includes(this.selectedGenre) === true
           : item.genres.includes(this.selectedGenre)
         });
       }
