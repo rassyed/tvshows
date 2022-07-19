@@ -8,6 +8,15 @@
             <figure>
               <img :src="urlImg" />
             </figure>
+            <div v-if="rating">
+              <RatingIndicator 
+                :score="rating" 
+                size="82"
+                stroke-width="5"
+                stroke-color="#ff6633"
+              />
+              <i>Rating</i>              
+            </div>            
           </aside>
           <section class="info">
             <h1>{{ title }}</h1>
@@ -33,8 +42,6 @@
               <h2 class="label">Run time</h2>
               <p>{{ runtime }} minutes</p>
             </div>
-            <h2 class="label" v-if="rating">Rating</h2>
-            <p v-if="rating">{{ rating }}</p>
           </section>
         </template>
         <template v-else>Loading ...</template>
@@ -47,11 +54,13 @@
 </template>
 
 <script>
+import RatingIndicator from '@/components/RatingIndicator';
 import { mapState } from 'vuex';
 import dayjs from 'dayjs'
+
 export default {
   name: 'Modal',
-  components: {},
+  components: { RatingIndicator },
   computed: {
     ...mapState(['itemInfo']),
     showItemInfo () {
