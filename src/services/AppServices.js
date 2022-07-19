@@ -24,7 +24,15 @@ export default {
   getShows(page) {
     const url = `shows?page=${page}`;
     return API.get(url);    
-  }
+  },
+  getSeasons(id) {
+    const url = `shows/${id}/seasons`;
+    return API.get(url);
+  },
+  getEpisodes(id) {
+    const url = `shows/${id}/episodes`;
+    return API.get(url);
+  }  
 };
 
 function formatDate(date) {

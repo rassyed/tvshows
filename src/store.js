@@ -50,7 +50,7 @@ export default new Vuex.Store({
     RESET_ITEM: state => {
       Vue.set(state, 'itemInfo', {});
     },
-    LOAD_ITEM: (state, {info, cast}) => {
+    LOAD_ITEM: (state, {info, cast, seasons, episodes}) => {
       const itemInfo = info;
       let castDetails = '';
       cast.forEach(element => {
@@ -61,6 +61,8 @@ export default new Vuex.Store({
         }
       });
       itemInfo.cast = castDetails;
+      itemInfo.seasons = seasons;
+      itemInfo.episodes = episodes
       Vue.set(state, 'itemInfo', itemInfo);
     },
     setGenre: (state, selectedGenre) => {
@@ -75,12 +77,16 @@ export default new Vuex.Store({
     getItem: async ({ commit }, item) => {
       commit('RESET_ITEM');
       const itemId = item && item.show ? item.show.id : item.id
-      const [ responseCast ] = await Promise.all([
-        AppServices.getCast(itemId)
+      const [ responseCast, responseSeasons, responseEpisodes ] = await Promise.all([
+        AppServices.getCast(itemId),
+        AppServices.getSeasons(itemId),
+        AppServices.getEpisodes(itemId),
       ]);
       commit('LOAD_ITEM', {
         info: item,
-        cast: responseCast.data
+        cast: responseCast.data,
+        seasons: responseSeasons.data.length,
+        episodes: responseEpisodes.data.length
       });
     }
   }

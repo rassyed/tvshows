@@ -38,6 +38,10 @@
               <h2 class="label">CAST</h2>
               <p>{{ itemInfo.cast }}</p>
             </div>
+            <div>
+              <h2>Seasons and Episodes</h2>
+              <p>{{ itemInfo.seasons }} seasons - {{itemInfo.episodes}} episodes</p>
+            </div>
             <div v-if="runtime">
               <h2 class="label">Run time</h2>
               <p>{{ runtime }} minutes</p>
