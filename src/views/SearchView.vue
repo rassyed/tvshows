@@ -2,11 +2,12 @@
   <div>
     <div class="message">
       <div v-show="showMessage">{{ message }}</div>
-      <div v-show="showResults">
+      <div v-if="showResults && totalResults > 0">
         Results found for
         <span class="query">{{ query }}</span>
         : {{ totalResults }}
       </div>
+      <div v-else><p>There are no matches for you search.</p></div>
     </div>
 
     <ItemList :results="results" :selectedGenre="selectedGenre" type="multi" @item-clicked="viewDetailInfo"  @totalResults="computeLoadMore"/>
@@ -73,11 +74,8 @@ export default {
           this.query,
           this.page
         );
-        let titleLength = this.results.length
         this.results = this.results.concat(response.data);
-        if (titleLength !== this.results.length) {
-            this.totalPages = Math.round(this.results.length / 250);
-        }
+        this.totalResults = this.results.length;
       } catch (e) {
         if (action == 'MORE') this.page--;
         this.error = e;
