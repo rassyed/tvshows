@@ -5,7 +5,7 @@
     </button>
     <input
       type="text"
-      maxlength="20"
+      maxlength="50"
       v-model="query"
       @keypress.enter="search"
       @blur="resetSearch"
