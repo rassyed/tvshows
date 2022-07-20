@@ -1,6 +1,18 @@
 # tvshows
 ```
 App implemented using vuejs, router and store(vuex)
+
+Three navigations
+on air - Displays shows of current date based on country (By default its US)
+Top - Sorted shows based on rating
+shows - Displays all shows
+On clicking on show it show details related to the show
+
+Filters
+Genre - User can filter shows based on Genre
+Search - User can search any show
+
+There are so many data available on TvMaze.com we expand the application
 ```
 
 # Versions used
